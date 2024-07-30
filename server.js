@@ -1,10 +1,14 @@
-import {config} from 'dotenv'
-config({ path:'./config/.env.config'});
+import dotenv from 'dotenv';
 import express from 'express'
 import cookieParse from "cookie-parser";
-import cors from 'cors'
+import cors from 'cors';
+const app = express();
 
-const app = express()
+
+if(process.env.NODE_ENV !== "production"){
+  dotenv.config({ path:'./config/.env.config'});
+}
+console.log('mongoURL from server', process.env.MONGO_URL);
 
 import { v2 as cloudinary } from 'cloudinary';
 import streamifier from 'streamifier'
@@ -70,7 +74,7 @@ app.use('/order', orderRoute)
 
 
 //-------------------------------------------Models--------------------------------------------------------
-// model
+
 import Bill from './model/Bill.js'
 import GirlModel from './model/Girl.js'
 import MenModel from './model/Men.js'
@@ -78,6 +82,7 @@ import OtherModel from './model/Other.js'
 import ContactModel from './model/Contect.js';
 import Category from './model/CategoryModel.js';
 import Products from './model/ProductsModel.js';
+import db from './connect/Connect.js';
 //---------------------------------------------------------------------------------------------------------
 
 
@@ -477,7 +482,7 @@ const getImageData = async (imagePath) => {
 };
 
 app.use(ErrorMiddleware)
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3500;
 
 app.listen(PORT, async() => {
   await connectDB();
