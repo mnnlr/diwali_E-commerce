@@ -70,7 +70,7 @@ app.use('/order', orderRoute)
 
 
 //-------------------------------------------Models--------------------------------------------------------
-
+// model
 import Bill from './model/Bill.js'
 import GirlModel from './model/Girl.js'
 import MenModel from './model/Men.js'
